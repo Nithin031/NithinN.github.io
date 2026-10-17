@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blog — Nithin N</title>
+<meta name="description" content="Nithin N — blog. Coming soon; meanwhile, papers worth reading on explainability, calibration, robustness and robot learning.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 fill=%27%23f3f2f2%27/%3E%3Ctext x=%2732%27 y=%2750%27 font-family=%27Georgia,serif%27 font-weight=%27700%27 font-size=%2748%27 text-anchor=%27middle%27 fill=%27%23201e1d%27%3EN%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/site.css">
+<style>
+    body { margin: 0; text-wrap: pretty; }
+    a { color: var(--color-accent-700); }
+    a:not(.btn):hover { color: var(--color-accent-600); }
+    .paper-link:hover, .paper-link:focus-visible { color: var(--color-accent-700) !important; }
+</style>
+</head>
+<body>
+<div lang="en" style="background: var(--color-bg); color: var(--color-text); min-height: 100vh;">
+  <nav class="nav" style="position: sticky; top: 0; z-index: 20; background: var(--color-bg); flex-wrap: wrap; row-gap: 6px; padding-inline: max(clamp(20px, 5vw, 72px), calc((100% - 1200px) / 2 + clamp(20px, 5vw, 72px)));">
+    <a href="index.html" class="nav-brand" style="font-size: 18px; color: var(--color-text);">Nithin N.</a>
+    <a href="index.html#research">Research</a>
+    <a href="index.html#projects">Projects</a>
+    <a href="index.html#education">Education</a>
+    <a href="Blog.html" aria-current="page" style="color: var(--color-accent-700);">Blog</a>
+    <a href="index.html#contact">Contact</a>
+    <a class="btn btn-primary" href="assets/Nithin_N_Resume.pdf" target="_blank" rel="noopener" style="color: var(--color-bg);"><i class="ph-duotone ph-file-pdf" aria-hidden="true"></i>Résumé</a>
+  </nav>
+
+  <header style="max-width: 1200px; margin: 0 auto; padding: 112px clamp(20px, 5vw, 72px) 56px;">
+    <span style="display: block; font-size: 13px; line-height: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent); margin: 0 0 42px;">Blog</span>
+    <h1 data-press="" style="font-size: clamp(56px, 8vw, 112px); line-height: 1; letter-spacing: -0.03em; margin: 0 0 0 -0.035em;">
+      <span class="cmyk-head" style="display: block; text-box: trim-both cap alphabetic;"><span class="paper">Coming soon.</span><span class="plate plate-c" aria-hidden="true">Coming soon.</span><span class="plate plate-m" aria-hidden="true">Coming soon.</span><span class="plate plate-y" aria-hidden="true">Coming soon.</span></span>
+    </h1>
+    <p style="font-size: clamp(19px, 1.8vw, 22px); line-height: 1.5; max-width: 40ch; margin: 48px 0 0;">Nothing here yet. I’m still writing the first posts. In the meantime, here are some papers I keep going back to.</p>
+  </header>
+
+  <section style="max-width: 1200px; margin: 0 auto; padding: 28px clamp(20px, 5vw, 72px) 56px;">
+    <h2 style="font-size: 25px; line-height: 1.2; letter-spacing: -0.015em; margin: 0 0 14px;">Worth reading</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 0 clamp(32px, 5vw, 72px); max-width: 960px;">
+      <a class="paper-link" href="https://arxiv.org/abs/1610.02391" target="_blank" rel="noopener" style="display: block; padding: 14px 0; text-decoration: none; color: var(--color-text);">
+        <span style="display: block; font-weight: 600; font-size: 16.5px; line-height: 24px;">Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization</span>
+        <span style="display: block; font-style: italic; font-size: 14px; line-height: 22px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Selvaraju et al. · ICCV 2017</span>
+        <span style="display: block; font-size: 15px; line-height: 24px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 78%, transparent);">One of the attribution methods I benchmarked in XAIQuest.</span>
+      </a>
+      <a class="paper-link" href="https://arxiv.org/abs/1706.04599" target="_blank" rel="noopener" style="display: block; padding: 14px 0; text-decoration: none; color: var(--color-text);">
+        <span style="display: block; font-weight: 600; font-size: 16.5px; line-height: 24px;">On Calibration of Modern Neural Networks</span>
+        <span style="display: block; font-style: italic; font-size: 14px; line-height: 22px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Guo et al. · ICML 2017</span>
+        <span style="display: block; font-size: 15px; line-height: 24px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Why accurate networks are often overconfident, and how temperature scaling fixes it.</span>
+      </a>
+      <a class="paper-link" href="https://arxiv.org/abs/1903.12261" target="_blank" rel="noopener" style="display: block; padding: 14px 0; text-decoration: none; color: var(--color-text);">
+        <span style="display: block; font-weight: 600; font-size: 16.5px; line-height: 24px;">Benchmarking Neural Network Robustness to Common Corruptions and Perturbations</span>
+        <span style="display: block; font-style: italic; font-size: 14px; line-height: 22px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Hendrycks &amp; Dietterich · ICLR 2019</span>
+        <span style="display: block; font-size: 15px; line-height: 24px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 78%, transparent);">ImageNet-C: noise, blur, weather and digital corruptions at five severities.</span>
+      </a>
+      <a class="paper-link" href="https://arxiv.org/abs/2109.11978" target="_blank" rel="noopener" style="display: block; padding: 14px 0; text-decoration: none; color: var(--color-text);">
+        <span style="display: block; font-weight: 600; font-size: 16.5px; line-height: 24px;">Learning to Walk in Minutes Using Massively Parallel Deep Reinforcement Learning</span>
+        <span style="display: block; font-style: italic; font-size: 14px; line-height: 22px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Rudin et al. · CoRL 2021</span>
+        <span style="display: block; font-size: 15px; line-height: 24px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Thousands of simulated legged robots trained at once on one GPU, with a terrain curriculum.</span>
+      </a>
+      <a class="paper-link" href="https://arxiv.org/abs/1703.06907" target="_blank" rel="noopener" style="display: block; padding: 14px 0; text-decoration: none; color: var(--color-text);">
+        <span style="display: block; font-weight: 600; font-size: 16.5px; line-height: 24px;">Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World</span>
+        <span style="display: block; font-style: italic; font-size: 14px; line-height: 22px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Tobin et al. · IROS 2017</span>
+        <span style="display: block; font-size: 15px; line-height: 24px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Randomize the simulator enough and the real world becomes one more variation.</span>
+      </a>
+      <a class="paper-link" href="https://arxiv.org/abs/2304.02643" target="_blank" rel="noopener" style="display: block; padding: 14px 0; text-decoration: none; color: var(--color-text);">
+        <span style="display: block; font-weight: 600; font-size: 16.5px; line-height: 24px;">Segment Anything</span>
+        <span style="display: block; font-style: italic; font-size: 14px; line-height: 22px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Kirillov et al. · ICCV 2023</span>
+        <span style="display: block; font-size: 15px; line-height: 24px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 78%, transparent);">A promptable segmentation model trained on over a billion masks.</span>
+      </a>
+    </div>
+    <div style="display: flex; gap: 15px; margin-top: 56px;">
+      <a class="btn btn-ghost" href="index.html"><i class="ph-duotone ph-arrow-left" aria-hidden="true"></i>Back to the portfolio</a>
+    </div>
+  </section>
+
+  <footer style="max-width: 1200px; margin: 0 auto; padding: 84px clamp(20px, 5vw, 72px) 56px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px 28px; font-size: 13px; line-height: 20px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">
+    <span>© 2026 Nithin N. · Surathkal, Karnataka</span>
+    <span>Updated October 2026</span>
+  </footer>
+</div>
+</body>
+</html>
