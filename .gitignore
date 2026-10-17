@@ -1,0 +1,30 @@
+# ---------------------------------------------------------------
+# Everything else in this folder is the published website.
+# Only local clutter is ignored here.
+# ---------------------------------------------------------------
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+._*
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+*~
+
+# Logs and temp files
+*.log
+*.tmp
+*.bak
+
+# Local tooling (in case any ever lands here)
+node_modules/
+__pycache__/
+.env
