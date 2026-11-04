@@ -28,3 +28,6 @@ $RECYCLE.BIN/
 node_modules/
 __pycache__/
 .env
+
+# Local design-tool state
+.image-slots.state.json

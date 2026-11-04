@@ -3,19 +3,50 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Blog — Nithin N</title>
-<meta name="description" content="Nithin N — blog. Coming soon; meanwhile, papers worth reading on explainability, calibration, robustness and robot learning.">
+<title>Teaching a Rover to Map a Crater Field and Never Fall In | Nithin N</title>
+<meta name="description" content="How captain Nithin N and Team NITK Caterbots built a crater detector, SLAM pipeline and persistent hazard map for CAC 2027.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 fill=%27%23f3f2f2%27/%3E%3Ctext x=%2732%27 y=%2750%27 font-family=%27Georgia,serif%27 font-weight=%27700%27 font-size=%2748%27 text-anchor=%27middle%27 fill=%27%23201e1d%27%3EN%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="assets/css/site.css">
 <style>
-    body { margin: 0; text-wrap: pretty; }
-    a { color: var(--color-accent-700); }
-    a:not(.btn):hover { color: var(--color-accent-600); }
-    .paper-link:hover, .paper-link:focus-visible { color: var(--color-accent-700) !important; }
+  body { margin: 0; background: var(--color-bg); color: var(--color-text); text-wrap: pretty; }
+  .blog-page a { color: var(--color-accent-700); }
+  .blog-page a:hover { color: var(--color-accent-600); }
+  .article-hero { max-width: 1160px; margin: 0 auto; padding: 104px clamp(20px, 5vw, 72px) 48px; }
+  .article-kicker { margin: 0 0 24px; color: var(--color-accent-700); font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
+  .article-hero h1 { max-width: 950px; margin: 0; font-size: clamp(48px, 7vw, 92px); line-height: .98; letter-spacing: -.04em; }
+  .article-deck { max-width: 650px; margin: 32px 0 0; font-size: clamp(19px, 2vw, 24px); line-height: 1.45; color: color-mix(in srgb, var(--color-text) 72%, transparent); }
+  .article-meta { margin-top: 28px; font-size: 14px; color: color-mix(in srgb, var(--color-text) 62%, transparent); }
+  .article-cover { max-width: 1160px; margin: 24px auto 0; padding: 0 clamp(20px, 5vw, 72px); }
+  .article-cover img { display: block; width: 100%; max-height: 560px; object-fit: cover; border: 1px solid var(--color-divider); }
+  .article { max-width: 760px; margin: 0 auto; padding: 56px 20px 96px; font-size: 19px; line-height: 1.75; }
+  .article p { margin: 0 0 24px; }
+  .article-intro { margin: 0 0 38px; padding: 4px 0 4px 24px; border-left: 3px solid var(--color-accent-500); }
+  .article h2 { margin: 64px 0 18px; font-size: 32px; line-height: 1.15; letter-spacing: -.02em; }
+  .article figure { margin: 42px -120px; }
+  .article figure img { display: block; width: 100%; border: 1px solid var(--color-divider); }
+  .article figcaption { margin-top: 10px; text-align: center; font-size: 14px; line-height: 1.45; color: color-mix(in srgb, var(--color-text) 62%, transparent); }
+  .article code { padding: 2px 5px; background: color-mix(in srgb, var(--color-text) 8%, transparent); font-size: .88em; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 34px 0 36px; }
+  .stat { padding: 18px 12px; border-top: 2px solid var(--color-accent-500); background: var(--color-surface); text-align: center; }
+  .stat b { display: block; color: var(--color-accent-700); font-size: 27px; line-height: 1.2; }
+  .stat span { display: block; margin-top: 5px; font-size: 12px; line-height: 1.35; }
+  .article blockquote { margin: 36px 0; padding: 18px 24px; border-left: 3px solid var(--color-accent-2-500); background: var(--color-surface); font-style: italic; }
+  .triple { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 38px 0; }
+  .triple figure { margin: 0; }
+  .triple figcaption { font-size: 13px; }
+  @media (max-width: 840px) {
+    .article { font-size: 18px; }
+    .article figure { margin: 36px 0; }
+  }
+  @media (max-width: 620px) {
+    .stats, .triple { grid-template-columns: repeat(2, 1fr); }
+    .article-hero { padding-top: 72px; }
+    .article h2 { margin-top: 48px; font-size: 28px; }
+  }
 </style>
 </head>
 <body>
-<div lang="en" style="background: var(--color-bg); color: var(--color-text); min-height: 100vh;">
+<div class="blog-page">
   <nav class="nav" style="position: sticky; top: 0; z-index: 20; background: var(--color-bg); flex-wrap: wrap; row-gap: 6px; padding-inline: max(clamp(20px, 5vw, 72px), calc((100% - 1200px) / 2 + clamp(20px, 5vw, 72px)));">
     <a href="index.html" class="nav-brand" style="font-size: 18px; color: var(--color-text);">Nithin N.</a>
     <a href="index.html#research">Research</a>
@@ -25,58 +56,152 @@
     <a href="index.html#contact">Contact</a>
     <a class="btn btn-primary" href="assets/Nithin_N_Resume.pdf" target="_blank" rel="noopener" style="color: var(--color-bg);"><i class="ph-duotone ph-file-pdf" aria-hidden="true"></i>Résumé</a>
   </nav>
-
-  <header style="max-width: 1200px; margin: 0 auto; padding: 112px clamp(20px, 5vw, 72px) 56px;">
-    <span style="display: block; font-size: 13px; line-height: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent); margin: 0 0 42px;">Blog</span>
-    <h1 data-press="" style="font-size: clamp(56px, 8vw, 112px); line-height: 1; letter-spacing: -0.03em; margin: 0 0 0 -0.035em;">
-      <span class="cmyk-head" style="display: block; text-box: trim-both cap alphabetic;"><span class="paper">Coming soon.</span><span class="plate plate-c" aria-hidden="true">Coming soon.</span><span class="plate plate-m" aria-hidden="true">Coming soon.</span><span class="plate plate-y" aria-hidden="true">Coming soon.</span></span>
-    </h1>
-    <p style="font-size: clamp(19px, 1.8vw, 22px); line-height: 1.5; max-width: 40ch; margin: 48px 0 0;">Nothing here yet. I’m still writing the first posts. In the meantime, here are some papers I keep going back to.</p>
+  <header class="article-hero">
+    <p class="article-kicker">Robotics · Field notes</p>
+    <h1>Teaching a Rover to Map a Crater Field and Never Fall In</h1>
+    <p class="article-deck">How we combined LiDAR, vision and SLAM to teach a small rover where the craters are.</p>
+    <p class="article-meta">By Nithin N · Captain, Team NITK Caterbots · CAC 2027 at IIT Madras</p>
   </header>
+  <div class="article-cover">
+    <img src="assets/img/rover-team.jpg" alt="The NITK Caterbots rover team">
+  </div>
+  <main class="article">
+<div class="article-intro">
+<p>Hi, I'm <strong>Nithin N</strong>, a third-year Electrical &amp; Electronics Engineering student at NITK Surathkal with a Minor in Machine Learning. My work sits at the intersection of computer vision, edge AI and robot learning. Alongside this rover project, I am a research project member at Carnegie Mellon University working on longitudinal Alzheimer's neuroimaging, and I have trained a reinforcement-learning policy that keeps a Unitree A1 quadruped standing on sloped terrain in MuJoCo. I am also a core member of Robotech NITK and a technical mentor at the Web Enthusiasts Club.</p>
 
-  <section style="max-width: 1200px; margin: 0 auto; padding: 28px clamp(20px, 5vw, 72px) 56px;">
-    <h2 style="font-size: 25px; line-height: 1.2; letter-spacing: -0.015em; margin: 0 0 14px;">Worth reading</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 0 clamp(32px, 5vw, 72px); max-width: 960px;">
-      <a class="paper-link" href="https://arxiv.org/abs/1610.02391" target="_blank" rel="noopener" style="display: block; padding: 14px 0; text-decoration: none; color: var(--color-text);">
-        <span style="display: block; font-weight: 600; font-size: 16.5px; line-height: 24px;">Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization</span>
-        <span style="display: block; font-style: italic; font-size: 14px; line-height: 22px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Selvaraju et al. · ICCV 2017</span>
-        <span style="display: block; font-size: 15px; line-height: 24px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 78%, transparent);">One of the attribution methods I benchmarked in XAIQuest.</span>
-      </a>
-      <a class="paper-link" href="https://arxiv.org/abs/1706.04599" target="_blank" rel="noopener" style="display: block; padding: 14px 0; text-decoration: none; color: var(--color-text);">
-        <span style="display: block; font-weight: 600; font-size: 16.5px; line-height: 24px;">On Calibration of Modern Neural Networks</span>
-        <span style="display: block; font-style: italic; font-size: 14px; line-height: 22px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Guo et al. · ICML 2017</span>
-        <span style="display: block; font-size: 15px; line-height: 24px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Why accurate networks are often overconfident, and how temperature scaling fixes it.</span>
-      </a>
-      <a class="paper-link" href="https://arxiv.org/abs/1903.12261" target="_blank" rel="noopener" style="display: block; padding: 14px 0; text-decoration: none; color: var(--color-text);">
-        <span style="display: block; font-weight: 600; font-size: 16.5px; line-height: 24px;">Benchmarking Neural Network Robustness to Common Corruptions and Perturbations</span>
-        <span style="display: block; font-style: italic; font-size: 14px; line-height: 22px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Hendrycks &amp; Dietterich · ICLR 2019</span>
-        <span style="display: block; font-size: 15px; line-height: 24px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 78%, transparent);">ImageNet-C: noise, blur, weather and digital corruptions at five severities.</span>
-      </a>
-      <a class="paper-link" href="https://arxiv.org/abs/2109.11978" target="_blank" rel="noopener" style="display: block; padding: 14px 0; text-decoration: none; color: var(--color-text);">
-        <span style="display: block; font-weight: 600; font-size: 16.5px; line-height: 24px;">Learning to Walk in Minutes Using Massively Parallel Deep Reinforcement Learning</span>
-        <span style="display: block; font-style: italic; font-size: 14px; line-height: 22px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Rudin et al. · CoRL 2021</span>
-        <span style="display: block; font-size: 15px; line-height: 24px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Thousands of simulated legged robots trained at once on one GPU, with a terrain curriculum.</span>
-      </a>
-      <a class="paper-link" href="https://arxiv.org/abs/1703.06907" target="_blank" rel="noopener" style="display: block; padding: 14px 0; text-decoration: none; color: var(--color-text);">
-        <span style="display: block; font-weight: 600; font-size: 16.5px; line-height: 24px;">Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World</span>
-        <span style="display: block; font-style: italic; font-size: 14px; line-height: 22px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Tobin et al. · IROS 2017</span>
-        <span style="display: block; font-size: 15px; line-height: 24px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Randomize the simulator enough and the real world becomes one more variation.</span>
-      </a>
-      <a class="paper-link" href="https://arxiv.org/abs/2304.02643" target="_blank" rel="noopener" style="display: block; padding: 14px 0; text-decoration: none; color: var(--color-text);">
-        <span style="display: block; font-weight: 600; font-size: 16.5px; line-height: 24px;">Segment Anything</span>
-        <span style="display: block; font-style: italic; font-size: 14px; line-height: 22px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">Kirillov et al. · ICCV 2023</span>
-        <span style="display: block; font-size: 15px; line-height: 24px; margin-top: 4px; color: color-mix(in srgb, var(--color-text) 78%, transparent);">A promptable segmentation model trained on over a billion masks.</span>
-      </a>
-    </div>
-    <div style="display: flex; gap: 15px; margin-top: 56px;">
-      <a class="btn btn-ghost" href="index.html"><i class="ph-duotone ph-arrow-left" aria-hidden="true"></i>Back to the portfolio</a>
-    </div>
-  </section>
+<p>For the 2027 CAC challenge at IIT Madras, I am the captain of Team NITK Caterbots. I also own the perception stack: crater detection, localization, SLAM integration and the persistent crater map. That means the job is not only to make one subsystem work, but to align the team's mechanical, electrical, software and autonomy decisions around a rover that can survive the full mission. In the earlier Caterpillar Rover Challenge at IIT Madras, our team finished in the top 10 of 1,922 teams. This article is a deeper account of the system, the failure modes and the evidence behind the numbers.</p>
+</div>
 
-  <footer style="max-width: 1200px; margin: 0 auto; padding: 84px clamp(20px, 5vw, 72px) 56px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px 28px; font-size: 13px; line-height: 20px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">
-    <span>© 2026 Nithin N. · Surathkal, Karnataka</span>
-    <span>Updated October 2026</span>
-  </footer>
+<p>A rover does not fail because a crater is visually interesting. It fails when a perception error becomes a planning error: a hazard is missed, a false obstacle blocks a route, or a repeated observation is interpreted as a new object. Our design question was therefore more specific than “can a neural network detect craters?”</p>
+
+<p><em>Can a resource-constrained rover estimate its pose, detect shallow hazards and accumulate those detections into a metrically useful map, using a LiDAR, a camera and onboard compute?</em></p>
+
+<h2>1. Problem formulation: perception under partial observability</h2>
+
+<p>The arena is an enclosed sand field containing craters of different sizes, foam-cube obstacles and landmarks. The rover must explore the scene while maintaining enough geometric consistency to reason about what it has already seen.</p>
+
+<p>At time <em>t</em>, the robot has a noisy sensor observation <em>z<sub>t</sub></em>, a control input <em>u<sub>t</sub></em> and a latent state containing its pose and the locations of hazards. In a compact SLAM notation, the system is estimating:</p>
+
+<div class="equation">p(x<sub>0:t</sub>, m | z<sub>1:t</sub>, u<sub>1:t</sub>)<br><br>x<sub>t</sub> = [x, y, &theta;]<sup>T</sup> &nbsp;&isin;&nbsp; SE(2), &nbsp;&nbsp; m = {c<sub>1</sub>, c<sub>2</sub>, ..., c<sub>n</sub>}</div>
+
+<p>Here, <em>x<sub>t</sub></em> is the rover pose in the planar map frame and <em>m</em> is the set of persistent crater hypotheses. The challenge is that the sensors are complementary rather than interchangeable. The LiDAR observes structure at its scan height and is excellent for localization. A crater only a few centimetres deep can be almost invisible to that scan. The camera has the semantic sensitivity we need, but its detections are image-space measurements with uncertain depth.</p>
+
+<p>That led to the central division of responsibility: <strong>LiDAR and wheel odometry establish geometric context; the camera proposes semantic hazards; the map layer decides whether those proposals deserve memory.</strong></p>
+
+<h2>2. System architecture</h2>
+
+<h3>2.1 Localization with LiDAR, odometry and SLAM</h3>
+
+<p>We used <code>slam_toolbox</code> on ROS&nbsp;2 Jazzy. Wheel odometry supplies a short-term motion prior, while LiDAR scan matching constrains drift against the observed environment. The resulting occupancy grid used a 5&nbsp;cm resolution, which was a practical compromise between representing the arena and keeping the map computationally manageable.</p>
+
+<p>In the planar setting, a scan point is transformed through the current pose estimate using the rigid-body transform:</p>
+
+<div class="equation">p<sub>map</sub> = T<sub>map&larr;base</sub> T<sub>base&larr;camera</sub> p<sub>camera</sub><br><br>T(x, y, &theta;) = [ cos&theta;  -sin&theta;  x ; sin&theta;  cos&theta;  y ; 0  0  1 ]</div>
+
+<p>The important engineering detail is not the matrix itself; it is frame discipline. A detector can be accurate in pixels and still be useless if a camera-frame point is fused into the map frame with a stale transform, a wrong axis convention or an incorrect timestamp. ROS transforms and synchronized timestamps were therefore part of the perception system, not plumbing to be added later.</p>
+
+<h3>2.2 Semantic perception with a single-class detector</h3>
+
+<p>We fine-tuned a YOLO detector with one class: <code>crater</code>. The training set combined 374 simulated frames with 300 real photographs of craters in sand. Simulation gave us an unusual advantage: the simulator knows the ground-truth crater geometry, so bounding boxes could be generated by projecting known crater positions through the camera model rather than annotating every frame by hand.</p>
+
+<p>This is a form of privileged-label generation. The training pipeline can use information unavailable to the deployed rover, such as exact object coordinates in the simulated world, while the deployed model receives only RGB pixels. It reduces annotation cost, but it does not remove the sim-to-real problem: texture, illumination, sand granularity, camera response and crater morphology still create a domain gap.</p>
+
+<h3>2.3 From a 2D box to a map-level hypothesis</h3>
+
+<p>A detector returns a bounding box, confidence score and class label. It does not directly return a metrically reliable crater centre. We selected a representative image point, projected it onto the ground assumption, converted it into the map frame and then associated it with existing hypotheses.</p>
+
+<p>For a pinhole camera, the back-projection begins with the normalized ray:</p>
+
+<div class="equation">r<sub>c</sub> = K<sup>-1</sup>[u, v, 1]<sup>T</sup><br><br>p<sub>ground</sub> = o + &lambda;r<sub>c</sub>, &nbsp; where &nbsp; p<sub>ground,z</sub> = 0</div>
+
+<p>The scalar <em>&lambda;</em> is determined by the camera pose and the ground-plane intersection. In the arena this approximation is useful, but it also explains why a visually correct detection can still produce a bad map point: any error in camera pitch, camera height, rover pose or the assumed local ground plane propagates into the estimated crater position.</p>
+
+<p>We used a conservative temporal memory rule. A detection was not immediately promoted to a persistent crater. It had to be observed again and fall within 70&nbsp;cm of an existing hypothesis. This is a lightweight form of data association with hysteresis: it suppresses isolated false positives while allowing repeated views of the same crater to reinforce one another.</p>
+
+<figure>
+  <img src="assets/blog/figures/fig1_slam_map.png" alt="SLAM map with rover path, ground-truth craters and detected craters">
+  <figcaption>Map-level result. Orange is the rover trajectory, green dashed circles are ground-truth craters, and red crosses are persistent crater hypotheses.</figcaption>
+</figure>
+
+<h2>3. The failure that exposed our measurement model</h2>
+
+<p>Our first geometric heuristic placed the crater at the bottom edge of the detection box. That rule is often reasonable for an upright object whose contact point is near the lower image boundary. It is not reasonable for a crater: the bottom edge tends to represent the near rim, not the crater's geometric centre.</p>
+
+<p>The consequence was systematic bias rather than random noise. Estimates were pulled toward the rover, two phantom craters appeared, and the mean position error reached 41&nbsp;cm. Replacing the bottom-edge point with the centre of the detection box reduced the mean error to 28&nbsp;cm and removed the false craters in the evaluated run. A repeat run produced 0.277&nbsp;m versus 0.279&nbsp;m, suggesting the improvement was not just a lucky trajectory.</p>
+
+<p>This was a useful reminder that a perception pipeline is not only a detector. The detector, camera model, frame transforms, association rule and evaluation protocol together define the measurement model. A high-confidence box can still become a low-quality landmark if the downstream geometry encodes the wrong physical assumption.</p>
+
+<h2>4. Results</h2>
+
+<div class="stats">
+  <div class="stat"><b>11 / 11</b><span>craters found and matched</span></div>
+  <div class="stat"><b>0</b><span>false craters</span></div>
+  <div class="stat"><b>0.28 m</b><span>mean position error</span></div>
+  <div class="stat"><b>0.23 m</b><span>median error</span></div>
+</div>
+
+<p>Across a 22.8&nbsp;m simulated tour, all 11 craters were found and localized. Detector mAP50 was 0.866 on simulated frames and 0.957 on a held-out set of 29 real sand-crater photos. During development, inference on an RTX&nbsp;4050 took approximately 24&ndash;34&nbsp;ms per frame. That GPU was not part of the rover deployment.</p>
+
+<p>The real platform was a Raspberry&nbsp;Pi&nbsp;5 with a Hailo AI HAT. The deployed detector sustained 24&nbsp;FPS and reached 32&nbsp;FPS peak. These measurements describe detector throughput, not the end-to-end latency of SLAM, projection, association and navigation. Keeping those quantities separate matters: a fast detector does not automatically imply a fast or safe robot.</p>
+
+<figure>
+  <img src="assets/blog/figures/fig_rviz_live_detection.png" alt="RViz showing live detection and SLAM">
+  <figcaption>RViz during a run: the localization map, LiDAR returns, live camera detections and persistent crater memory in one view.</figcaption>
+</figure>
+
+<figure>
+  <img src="assets/blog/figures/fig2_detections.png" alt="Crater detections on simulated sand">
+  <figcaption>Detector output on simulated sand. The vision model supplies candidates; the mapping layer decides which candidates become persistent hazards.</figcaption>
+</figure>
+
+<h2>5. Edge deployment: from floating point to an accelerator</h2>
+
+<p>The laptop experiment and the rover experiment were different engineering problems. On the laptop, the question was whether the model could learn the visual signature of a crater. On the Raspberry&nbsp;Pi, the question became whether the trained graph could survive quantization, compilation and runtime constraints on a Hailo accelerator.</p>
+
+<p>Quantization replaces higher-precision representations with lower-precision ones so that the network can execute efficiently on dedicated hardware. The danger is not merely a small change in confidence. Quantization can alter activation distributions, expose unsupported operators, or amplify errors in layers that are sensitive to small numerical changes. Compilation adds another constraint: the model must be expressible in the accelerator's supported graph and memory model.</p>
+
+<p>I spent days calibrating the model, debugging compile and runtime failures, and tracing issues across the model export, accelerator toolchain, drivers and camera path. The eventual deployment retained detector confidence around 0.95&ndash;0.97 on the real crater examples and ran at 24&nbsp;FPS sustained. The lesson was that edge AI is a systems problem: model architecture, numerical precision, compiler compatibility, thermal headroom and sensor I/O all participate in the final result.</p>
+
+<div class="triple">
+  <figure>
+    <img src="assets/blog/real_craters/real_detection_1.jpg" alt="Two craters in light sand">
+    <figcaption>Light sand: detections at 0.96 and 0.97 confidence.</figcaption>
+  </figure>
+  <figure>
+    <img src="assets/blog/real_craters/real_detection_2.jpg" alt="Two overlapping craters in a sand pile">
+    <figcaption>Overlapping craters: both detected at 0.96.</figcaption>
+  </figure>
+  <figure>
+    <img src="assets/blog/real_craters/real_detection_3.jpg" alt="A rough crater in dark sand">
+    <figcaption>Uneven crater in dark sand: detection at 0.96.</figcaption>
+  </figure>
+</div>
+
+<p>The code for this pipeline is on GitHub: <a href="https://github.com/Nithin031/Caterpillar-Rover-iitm">Caterpillar-Rover-iitm</a>.</p>
+
+<h2>6. What the numbers do and do not mean</h2>
+
+<blockquote>
+  Honest engineering means identifying the boundary of the evidence.
+</blockquote>
+
+<p>The mapping result comes from ROS&nbsp;2 and Gazebo Harmonic in one simulated scene and one route. The validation score is optimistic because training and validation frames share the same simulated crater environment. The real-photo test set contains only 29 images, so its 0.957 mAP50 should be read as an encouraging check, not a statistically decisive claim about generalization.</p>
+
+<p>The simulator ran the camera renderer at roughly 3&nbsp;Hz on the CPU in my setup. That was the bottleneck for the mapping experiment, not the detector's RTX throughput. Conversely, the Hailo measurements are real hardware measurements of detector execution; they do not yet certify the full SLAM plus crater-memory pipeline under rover motion, vibration, lighting change and wheel slip.</p>
+
+<p>We also did not report confidence intervals, cross-scene performance or independent repeated trials at the scale required for a formal benchmark. Those omissions are not cosmetic. They determine whether a result is a reproducible system property or merely a successful demonstration.</p>
+
+<h2>7. Next experiments</h2>
+
+<p>The next milestone is to run the complete mapping loop on real sand: detector inference, ground projection, transform lookup, crater association and path planning as one measured pipeline. We want to evaluate multiple arena layouts, independent runs and controlled changes in illumination and crater appearance.</p>
+
+<p>Technically, the natural extensions are uncertainty-aware crater tracks, a better ground model for non-planar sand, explicit camera–LiDAR calibration checks and a planner that consumes hazard probability rather than a binary crater point. A crater map should eventually become an actionable cost layer in navigation, not just a visualization overlay.</p>
+
+<p>Thanks to our teammates, mentors and the CAC 2027 organizers at IIT Madras. The most valuable result was not one detector score. It was learning how a small geometric assumption can dominate an entire perception stack.</p>
+
+<p><em>Tags: Robotics, ROS 2, Computer Vision, SLAM, Edge AI, Sensor Fusion, Sim-to-Real, Machine Learning</em></p>
+  </main>
+  <footer style="padding: 30px 20px 60px; text-align: center; color: color-mix(in srgb, var(--color-text) 62%, transparent); font-size: 14px;">Team NITK Caterbots · Built with ROS 2, Gazebo, slam_toolbox and YOLO</footer>
 </div>
 </body>
 </html>
