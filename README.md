@@ -1,6 +1,16 @@
 # Nithin N. - Portfolio
 
-Static portfolio and blog for GitHub Pages.
+Static portfolio and multi-page blog for GitHub Pages.
+
+## Blog structure
+
+- [`Blog.html`](./Blog.html) is the blog index.
+- Articles live in [`blogs/`](./blogs/).
+- The rover article is available at
+  [`blogs/crater-rover.html`](./blogs/crater-rover.html).
+
+Add future articles as new pages under `blogs/` and add a card linking to each
+page in `Blog.html`.
 
 ## Publish locally
 
