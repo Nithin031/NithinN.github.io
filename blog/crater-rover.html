@@ -4,9 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Teaching a Rover to Map a Crater Field and Never Fall In | Nithin N</title>
+<link rel="canonical" href="https://nithin03.vercel.app/blog/crater-rover">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Teaching a Rover to Map a Crater Field and Never Fall In | Nithin N">
+<meta property="og:description" content="How captain Nithin N and Team NITK Caterbots built a crater detector, SLAM pipeline and persistent hazard map for CAC 2027.">
+<meta property="og:url" content="https://nithin03.vercel.app/blog/crater-rover">
+<meta property="og:image" content="https://nithin03.vercel.app/assets/blog/figures/fig1_slam_map.png">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="description" content="How captain Nithin N and Team NITK Caterbots built a crater detector, SLAM pipeline and persistent hazard map for CAC 2027.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 fill=%27%23f3f2f2%27/%3E%3Ctext x=%2732%27 y=%2750%27 font-family=%27Georgia,serif%27 font-weight=%27700%27 font-size=%2748%27 text-anchor=%27middle%27 fill=%27%23201e1d%27%3EN%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="/assets/css/site.css">
 <style>
   body { margin: 0; background: var(--color-bg); color: var(--color-text); text-wrap: pretty; }
   .blog-page a { color: var(--color-accent-700); }
@@ -48,13 +55,13 @@
 <body>
 <div class="blog-page">
   <nav class="nav" style="position: sticky; top: 0; z-index: 20; background: var(--color-bg); flex-wrap: wrap; row-gap: 6px; padding-inline: max(clamp(20px, 5vw, 72px), calc((100% - 1200px) / 2 + clamp(20px, 5vw, 72px)));">
-    <a href="../" class="nav-brand" style="font-size: 18px; color: var(--color-text);">Nithin N.</a>
-    <a href="../index.html#research">Research</a>
-    <a href="../index.html#projects">Projects</a>
-    <a href="../index.html#education">Education</a>
-    <a href="./" aria-current="page" style="color: var(--color-accent-700);">Blog</a>
-    <a href="../index.html#contact">Contact</a>
-    <a class="btn btn-primary" href="../assets/Nithin_N_Resume.pdf" target="_blank" rel="noopener" style="color: var(--color-bg);"><i class="ph-duotone ph-file-pdf" aria-hidden="true"></i>Résumé</a>
+    <a href="/" class="nav-brand" style="font-size: 18px; color: var(--color-text);">Nithin N.</a>
+    <a href="/#research">Research</a>
+    <a href="/#projects">Projects</a>
+    <a href="/#education">Education</a>
+    <a href="/blog" aria-current="page" style="color: var(--color-accent-700);">Blog</a>
+    <a href="/#contact">Contact</a>
+    <a class="btn btn-primary" href="/assets/Nithin_N_Resume.pdf" target="_blank" rel="noopener" style="color: var(--color-bg);"><i class="ph-duotone ph-file-pdf" aria-hidden="true"></i>Résumé</a>
   </nav>
   <header class="article-hero">
     <p class="article-kicker">Robotics · Field notes</p>
@@ -63,7 +70,7 @@
     <p class="article-meta">By Nithin N · Captain, Team NITK Caterbots · CAC 2027 at IIT Madras</p>
   </header>
   <div class="article-cover">
-    <img src="../assets/img/rover-team.jpg" alt="The NITK Caterbots rover team">
+    <img src="/assets/img/rover-team.jpg" alt="The NITK Caterbots rover team">
   </div>
   <main class="article">
 <div class="article-intro">
@@ -119,7 +126,7 @@
 <p>We used a conservative temporal memory rule. A detection was not immediately promoted to a persistent crater. It had to be observed again and fall within 70&nbsp;cm of an existing hypothesis. This is a lightweight form of data association with hysteresis: it suppresses isolated false positives while allowing repeated views of the same crater to reinforce one another.</p>
 
 <figure>
-  <img src="../assets/blog/figures/fig1_slam_map.png" alt="SLAM map with rover path, ground-truth craters and detected craters">
+  <img src="/assets/blog/figures/fig1_slam_map.png" alt="SLAM map with rover path, ground-truth craters and detected craters">
   <figcaption>Map-level result. Orange is the rover trajectory, green dashed circles are ground-truth craters, and red crosses are persistent crater hypotheses.</figcaption>
 </figure>
 
@@ -145,12 +152,12 @@
 <p>The real platform was a Raspberry&nbsp;Pi&nbsp;5 with a Hailo AI HAT. The deployed detector sustained 24&nbsp;FPS and reached 32&nbsp;FPS peak. These measurements describe detector throughput, not the end-to-end latency of SLAM, projection, association and navigation. Keeping those quantities separate matters: a fast detector does not automatically imply a fast or safe robot.</p>
 
 <figure>
-  <img src="../assets/blog/figures/fig_rviz_live_detection.png" alt="RViz showing live detection and SLAM">
+  <img src="/assets/blog/figures/fig_rviz_live_detection.png" alt="RViz showing live detection and SLAM">
   <figcaption>RViz during a run: the localization map, LiDAR returns, live camera detections and persistent crater memory in one view.</figcaption>
 </figure>
 
 <figure>
-  <img src="../assets/blog/figures/fig2_detections.png" alt="Crater detections on simulated sand">
+  <img src="/assets/blog/figures/fig2_detections.png" alt="Crater detections on simulated sand">
   <figcaption>Detector output on simulated sand. The vision model supplies candidates; the mapping layer decides which candidates become persistent hazards.</figcaption>
 </figure>
 
@@ -164,15 +171,15 @@
 
 <div class="triple">
   <figure>
-    <img src="../assets/blog/real_craters/real_detection_1.jpg" alt="Two craters in light sand">
+    <img src="/assets/blog/real_craters/real_detection_1.jpg" alt="Two craters in light sand">
     <figcaption>Light sand: detections at 0.96 and 0.97 confidence.</figcaption>
   </figure>
   <figure>
-    <img src="../assets/blog/real_craters/real_detection_2.jpg" alt="Two overlapping craters in a sand pile">
+    <img src="/assets/blog/real_craters/real_detection_2.jpg" alt="Two overlapping craters in a sand pile">
     <figcaption>Overlapping craters: both detected at 0.96.</figcaption>
   </figure>
   <figure>
-    <img src="../assets/blog/real_craters/real_detection_3.jpg" alt="A rough crater in dark sand">
+    <img src="/assets/blog/real_craters/real_detection_3.jpg" alt="A rough crater in dark sand">
     <figcaption>Uneven crater in dark sand: detection at 0.96.</figcaption>
   </figure>
 </div>

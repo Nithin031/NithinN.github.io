@@ -9,6 +9,7 @@ folder are the website.
 - `blog/index.html` - blog index (served at `/blog`)
 - `blog/<slug>.html` - one page per article (served at `/blog/<slug>`)
 - `404.html` - not-found page
+- `sitemap.xml`, `robots.txt` - add each new post URL to the sitemap
 - `assets/` - CSS, JS, fonts, images, video, resume PDF
 - `vercel.json` - clean URLs, redirects from the old `/Blog.html` and
   `/blogs/*` paths, and cache headers
