@@ -1,46 +1,33 @@
 # Nithin N. - Portfolio
 
-Static portfolio and multi-page blog for GitHub Pages.
+Static portfolio and blog, deployed on Vercel. No build step: the files in this
+folder are the website.
 
-## Blog structure
+## Structure
 
-- [`Blog.html`](./Blog.html) is the blog index.
-- Articles live in [`blogs/`](./blogs/).
-- The rover article is available at
-  [`blogs/crater-rover.html`](./blogs/crater-rover.html).
+- `index.html` - home page
+- `blog/index.html` - blog index (served at `/blog`)
+- `blog/<slug>.html` - one page per article (served at `/blog/<slug>`)
+- `404.html` - not-found page
+- `assets/` - CSS, JS, fonts, images, video, resume PDF
+- `vercel.json` - clean URLs, redirects from the old `/Blog.html` and
+  `/blogs/*` paths, and cache headers
 
-Add future articles as new pages under `blogs/` and add a card linking to each
-page in `Blog.html`.
+## Adding a blog post
 
-## Publish locally
+1. Copy `blog/crater-rover.html` to `blog/<new-slug>.html` and replace the article.
+2. Put its images in `assets/blog/`.
+3. Add a `post-card` linking to it in `blog/index.html`.
 
-The published files are already in this repository root. To preview them locally, open
-[`index.html`](./index.html) or [`Blog.html`](./Blog.html) in a browser.
-
-## GitHub Pages
-
-This repository is configured for a root-branch GitHub Pages deployment:
-
-1. Open **Settings > Pages** on GitHub.
-2. Select **Deploy from a branch**.
-3. Choose the `main` branch and the `/ (root)` folder.
-4. Save and wait for the Pages deployment to finish.
-
-The `.nojekyll` file keeps GitHub Pages from rewriting the static asset paths.
-
-## Updating the blog
-
-The source article lives in `../blog/blog.html` in the parent project folder. From
-the parent project, regenerate the published page with:
+## Preview locally
 
 ```powershell
-py -3 make_blog.py
+py -3 -m http.server 8000
 ```
 
-Then copy the generated changes into this repository, review them, and push:
+Then open http://localhost:8000.
 
-```powershell
-git add .
-git commit -m "Update portfolio blog"
-git push origin main
-```
+## Deploy
+
+Vercel project settings: Framework preset **Other**, no build command, output
+directory `.` (repository root). Every push to `main` redeploys.
